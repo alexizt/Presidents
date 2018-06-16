@@ -78,6 +78,12 @@ namespace Presidents.Models
                 return presidents;
             }
 
+            /// <summary>
+            /// Get List of Presidents Ordered
+            /// </summary>
+            /// <param name="sort">Sort parameter: birthday,birthday_desc, deathday, deathday_desc</param>
+            /// <returns>List of presidents order by sort</returns>
+            /// <remarks>If they have not died yet, they are displayed at the bottom regardless of sort order</remarks>
             public List<President> GetPresidentsOrdered(string sort = "birthday") {
                 List<President> presidents = this.GetPresidents();
 
