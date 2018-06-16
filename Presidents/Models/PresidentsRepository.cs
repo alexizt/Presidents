@@ -16,7 +16,8 @@ namespace Presidents.Models
         /// </summary>
         public interface IPresidentsRepository
         {
-            List<President> getPresidents();
+            List<President> GetPresidents();
+            List<President> GetPresidentsOrdered(string sort = "birthday");
         }
 
         /// <summary>
@@ -28,7 +29,7 @@ namespace Presidents.Models
             /// Get List of Presidents
             /// </summary>
             /// <returns></returns>
-            public List<President> getPresidents()
+            public List<President> GetPresidents()
             {
 
                 var service = new SheetsService(new BaseClientService.Initializer
@@ -71,9 +72,33 @@ namespace Presidents.Models
                 {
                     Console.WriteLine("No data found.");
                 }
-                return presidents.ToList();
+
+
+
+                return presidents;
             }
 
+            public List<President> GetPresidentsOrdered(string sort = "birthday") {
+                List<President> presidents = this.GetPresidents();
+
+
+                switch (sort.ToLower())
+                {
+                    case "birthday":
+                        presidents = presidents.OrderBy(x => x.DeathDay == null).ThenBy(x => x.BirthDay).ToList();
+                        break;
+                    case "birthday_desc":
+                        presidents = presidents.OrderBy(x => x.DeathDay == null).ThenByDescending(x => x.BirthDay).ToList();
+                        break;
+                    case "deathday":
+                        presidents = presidents.OrderBy(x => x.DeathDay == null).ThenBy(x => x.DeathDay).ToList();
+                        break;
+                    case "deathday_desc":
+                        presidents = presidents.OrderBy(x => x.DeathDay == null).ThenByDescending(x => x.DeathDay).ToList();
+                        break;
+                }
+                return presidents;
+            }
         }
 
     }

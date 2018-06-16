@@ -44,25 +44,7 @@ namespace Presidents.Controllers
         [HttpGet]
         public IHttpActionResult Get(string sort = "birthday")
         {
-
-            var presidents= presidentsRepository.getPresidents().Where(x => true);
-            
-
-            switch (sort.ToLower())
-            {
-                case "birthday":
-                    presidents = presidents.OrderBy(x => x.DeathDay == null).ThenBy(x => x.BirthDay).ToList();
-                    break;
-                case "birthday_desc":
-                    presidents = presidents.OrderBy(x => x.DeathDay == null).ThenByDescending(x => x.BirthDay).ToList();
-                    break;
-                case "deathday":
-                    presidents = presidents.OrderBy(x => x.DeathDay == null).ThenBy(x => x.DeathDay).ToList();
-                    break;
-                case "deathday_desc":
-                    presidents = presidents.OrderBy(x => x.DeathDay == null).ThenByDescending(x => x.DeathDay).ToList();
-                    break;
-            }
+            var presidents= presidentsRepository.GetPresidentsOrdered(sort);
             return Ok(presidents);
         }
 
@@ -76,7 +58,7 @@ namespace Presidents.Controllers
         [Route("api/presidents/{name}")]
         public IHttpActionResult GetByName(string name)
         {
-            List<President> presidents = presidentsRepository.getPresidents().Where(x => x.PresidentName == name || name == "").OrderBy(x => x.PresidentName).ToList();
+            List<President> presidents = presidentsRepository.GetPresidents().Where(x => x.PresidentName == name || name == "").OrderBy(x => x.PresidentName).ToList();
             return Ok(presidents);
         }
     }
