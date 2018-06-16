@@ -4,7 +4,7 @@ using System.Linq;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Services;
-
+using Newtonsoft.Json;
 
 namespace Presidents.Models
 {
@@ -44,38 +44,21 @@ namespace Presidents.Models
                 SpreadsheetsResource.ValuesResource.GetRequest request =
                         service.Spreadsheets.Values.Get(spreadsheetId, range);
 
-                // Prints the names and majors of students in a sample spreadsheet:
-                // https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+                // Execute spreadsheet requet
                 ValueRange response = request.Execute();
                 IList<IList<Object>> values = response.Values;
 
                 
-
-                List<President> presidents = new List<President>();
-                if (values != null && values.Count > 0)
+                // Map to list of Presidents
+                List<President> presidents = values.Select(
+                x => new President()
                 {
-                    Console.WriteLine("Name, Major");
-                    foreach (var row in values)
-                    {
-                        switch (row.Count)
-                        {
-                            case 5:
-                                presidents.Add(new President() { PresidentName = row[0].ToString(), BirthDay = row[1].ToString(), BirthPlace = row[2].ToString(), DeathDay = row[3].ToString(), DeathPlace = row[4].ToString() });
-                                break;
-                            case 3:
-                                presidents.Add(new President() { PresidentName = row[0].ToString(), BirthDay = row[1].ToString(), BirthPlace = row[2].ToString() });
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No data found.");
-                }
-
-
+                    PresidentName = x[0].ToString(),
+                    BirthDay = (DateTime?)Convert.ToDateTime(x[1]),
+                    BirthPlace = x[2].ToString(),
+                    DeathDay = x.Count > 3 ? (DateTime?)Convert.ToDateTime(x[3]) : null,
+                    DeathPlace = x.Count > 4 ? x[4].ToString() : null,
+                }).ToList();
 
                 return presidents;
             }
