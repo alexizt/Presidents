@@ -58,7 +58,7 @@ namespace Presidents.Controllers
         [Route("api/presidents/{name}")]
         public IHttpActionResult GetByName(string name)
         {
-            List<President> presidents = presidentsRepository.GetPresidents().Where(x => x.PresidentName == name || name == "").OrderBy(x => x.PresidentName).ToList();
+            List<President> presidents = presidentsRepository.GetPresidentsByName(name);
             return Ok(presidents);
         }
     }

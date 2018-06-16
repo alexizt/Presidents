@@ -18,6 +18,7 @@ namespace Presidents.Models
         {
             List<President> GetPresidents();
             List<President> GetPresidentsOrdered(string sort = "birthday");
+            List<President> GetPresidentsByName(string name);
         }
 
         /// <summary>
@@ -89,6 +90,15 @@ namespace Presidents.Models
                         break;
                 }
                 return presidents;
+            }
+
+            /// <summary>
+            ///  Get US President filtered by Name
+            /// </summary>
+            /// <param name="name">Name of the US President</param>
+            /// <returns>List US Presidents filtered by name</returns>
+            public List<President> GetPresidentsByName(string name) {
+                return this.GetPresidents().Where(x => x.PresidentName == name || name == "").OrderBy(x => x.PresidentName).ToList();
             }
         }
 
