@@ -49,6 +49,8 @@ namespace Presidents.Models
                 ValueRange response = request.Execute();
                 IList<IList<Object>> values = response.Values;
 
+                
+
                 List<President> presidents = new List<President>();
                 if (values != null && values.Count > 0)
                 {
