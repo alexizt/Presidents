@@ -4,7 +4,6 @@ using System.Linq;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Services;
-using Newtonsoft.Json;
 
 namespace Presidents.Models
 {
@@ -16,8 +15,19 @@ namespace Presidents.Models
         /// </summary>
         public interface IPresidentsRepository
         {
+            /// <summary>
+            /// Get List of Presidents
+            /// </summary>
             List<President> GetPresidents();
+
+            /// <summary>
+            /// Get List of Presidents Ordered
+            /// </summary>
             List<President> GetPresidentsOrdered(string sort = "birthday");
+
+            /// <summary>
+            ///  Get US President filtered by Name
+            /// </summary>
             List<President> GetPresidentsByName(string name);
         }
 

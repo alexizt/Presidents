@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Web.Http;
-using Google.Apis.Auth.OAuth2;
 using Google.Apis.Sheets.v4;
-using Google.Apis.Sheets.v4.Data;
-using Google.Apis.Services;
-using Google.Apis.Util.Store;
-using System.IO;
-using System.Threading;
-using System.ComponentModel;
 using Presidents.Models;
 using Presidents.Models.Repositories;
 
