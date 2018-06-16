@@ -39,7 +39,7 @@ namespace Presidents.Controllers
         ///  Get US Presidents (allows sorting by birthdate and date of the decease)
         /// </summary>
         /// <param name="sort">Sort parameter: birthday,birthday_desc, deathday, deathday_desc</param>
-        /// <returns>JSON list of presidents order by sort</returns>
+        /// <returns>JSON list of presidents ordered by sort parameter (default by birthday)</returns>
         /// <remarks>If they have not died yet, they are displayed at the bottom regardless of sort order</remarks>
         [HttpGet]
         public IHttpActionResult Get(string sort = "birthday")
