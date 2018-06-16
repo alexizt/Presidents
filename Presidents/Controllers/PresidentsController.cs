@@ -17,24 +17,31 @@ using Presidents.Models.Repositories;
 
 namespace Presidents.Controllers
 {
+    /// <summary>
+    /// Main Controller
+    /// </summary>
     public class PresidentsController : ApiController
     {
 
         private IPresidentsRepository presidentsRepository;
 
         static string[] Scopes = { SheetsService.Scope.SpreadsheetsReadonly };
-        //static string ApplicationName = "Presidents of US";
 
+        /// <summary>
+        /// Injected constructor
+        /// </summary>
+        /// <param name="presidentsRepository">Injected PresidentsRepository</param>
         public PresidentsController(IPresidentsRepository presidentsRepository) {
             this.presidentsRepository = presidentsRepository;
         }
 
-
         /// <summary>
-        ///  GET api/presidents/
+        ///  Get US Presidents (allows sorting by birthdate and date of the decease)
         /// </summary>
-        /// <param name="sort">Sort field: birthday,birthday_desc, deathday, deathday_desc</param>
-        /// <returns>List of presidents order by <paramref name="sort"/></returns>
+        /// <param name="sort">Sort parameter: birthday,birthday_desc, deathday, deathday_desc</param>
+        /// <returns>List of presidents order by sort</returns>
+        /// <remarks>If they have not died yet, they are displayed at the bottom regardless of sort order</remarks>
+        [HttpGet]
         public IHttpActionResult Get(string sort = "birthday")
         {
 
@@ -44,16 +51,16 @@ namespace Presidents.Controllers
             switch (sort.ToLower())
             {
                 case "birthday":
-                    presidents = presidents.OrderBy(x => x.BirthDay).ToList();
+                    presidents = presidents.OrderBy(x => x.DeathDay == null).ThenBy(x => x.BirthDay).ToList();
                     break;
                 case "birthday_desc":
-                    presidents = presidents.OrderByDescending(x => x.BirthDay).ToList();
+                    presidents = presidents.OrderBy(x => x.DeathDay == null).ThenByDescending(x => x.BirthDay).ToList();
                     break;
                 case "deathday":
-                    presidents = presidents.OrderBy(x => x.DeathDay).ToList();
+                    presidents = presidents.OrderBy(x => x.DeathDay == null).ThenBy(x => x.DeathDay).ToList();
                     break;
                 case "deathday_desc":
-                    presidents = presidents.OrderByDescending(x => x.DeathDay).ToList();
+                    presidents = presidents.OrderBy(x => x.DeathDay == null).ThenByDescending(x => x.DeathDay).ToList();
                     break;
             }
             return Ok(presidents);
@@ -61,21 +68,16 @@ namespace Presidents.Controllers
 
 
         /// <summary>
-        ///  GET api/presidents/name
+        ///  Get US President filtered by Name
         /// </summary>
         /// <param name="name">Name of the US President</param>
-        /// <returns>List US Presidents filtered by <paramref name="name"/></returns>
+        /// <returns>List US Presidents filtered by name</returns>
+        [HttpGet]
         [Route("api/presidents/{name}")]
         public IHttpActionResult GetByName(string name)
         {
             List<President> presidents = presidentsRepository.getPresidents().Where(x => x.PresidentName == name || name == "").OrderBy(x => x.PresidentName).ToList();
             return Ok(presidents);
         }
-
-
- 
-
-            
-            
     }
 }
