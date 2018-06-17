@@ -10,7 +10,7 @@ namespace Presidents.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home";
+            ViewBag.Title = "US Presidents - Home";
 
             return View();
         }
