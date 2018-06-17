@@ -22,6 +22,10 @@ namespace Presidents
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             GlobalConfiguration.Configuration.Formatters.Clear();
             GlobalConfiguration.Configuration.Formatters.Add(new JsonMediaTypeFormatter());
+            //GlobalConfiguration.Configuration.Formatters.Add(new XmlMediaTypeFormatter());
+
+            var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+            json.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
         }
     }
 }
