@@ -34,17 +34,10 @@ namespace Presidents.Models
         /// </summary>
         private List<President> mapPresidents()
         {
-            // Define request parameters.
-            SpreadsheetsResource.ValuesResource.GetRequest request =
-                    _SheetsService.Spreadsheets.Values.Get(spreadsheetId, range);
+            IList<IList<object>> values = GetPresidentsFromSheet();
 
-            // Execute spreadsheet requet
-            ValueRange response = request.Execute();
-            IList<IList<Object>> values = response.Values;
-
-
-            // Map to list of Presidents
             List<President> presidents = values.Select(
+            // Map to list of Presidents
             x => new President()
             {
                 PresidentName = x[0].ToString(),
@@ -54,6 +47,18 @@ namespace Presidents.Models
                 DeathPlace = x.Count > 4 ? x[4].ToString() : null,
             }).ToList();
             return presidents;
+        }
+
+        private IList<IList<object>> GetPresidentsFromSheet()
+        {
+            // Define request parameters.
+            SpreadsheetsResource.ValuesResource.GetRequest request =
+                    _SheetsService.Spreadsheets.Values.Get(spreadsheetId, range);
+
+            // Execute spreadsheet requet
+            ValueRange response = request.Execute();
+            IList<IList<Object>> values = response.Values;
+            return values;
         }
 
         /// <summary>
