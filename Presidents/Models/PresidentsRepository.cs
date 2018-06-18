@@ -15,6 +15,8 @@ namespace Presidents.Models
     {
 
         private SheetsService _SheetsService;
+        private const string spreadsheetId = "1i2qbKeasPptIrY1PkFVjbHSrLtKEPIIwES6m2l2Mdd8";
+        private const string range = "A2:E";
 
         public PresidentsRepository()
         {
@@ -33,8 +35,6 @@ namespace Presidents.Models
         private List<President> mapPresidents()
         {
             // Define request parameters.
-            String spreadsheetId = "1i2qbKeasPptIrY1PkFVjbHSrLtKEPIIwES6m2l2Mdd8";
-            String range = "A2:E";
             SpreadsheetsResource.ValuesResource.GetRequest request =
                     _SheetsService.Spreadsheets.Values.Get(spreadsheetId, range);
 
