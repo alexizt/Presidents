@@ -1,4 +1,4 @@
-using Presidents.Models.Repositories;
+using Presidents.Models;
 using System.Web.Http;
 using Unity;
 using Unity.WebApi;

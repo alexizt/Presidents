@@ -2,7 +2,6 @@
 using System.Web.Http;
 using Google.Apis.Sheets.v4;
 using Presidents.Models;
-using Presidents.Models.Repositories;
 
 namespace Presidents.Controllers
 {

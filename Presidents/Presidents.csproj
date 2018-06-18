@@ -254,6 +254,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\IPresidentsRepository.cs" />
     <Compile Include="Models\President.cs" />
     <Compile Include="Models\PresidentsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
