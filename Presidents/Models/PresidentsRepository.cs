@@ -18,16 +18,24 @@ namespace Presidents.Models
         private const string spreadsheetId = "1i2qbKeasPptIrY1PkFVjbHSrLtKEPIIwES6m2l2Mdd8";
         private const string range = "A2:E";
 
-        public PresidentsRepository()
+
+        //public PresidentsRepository()
+        //{
+        //    /// Instance the SheetService 
+        //    var service = new SheetsService(new BaseClientService.Initializer
+        //    {
+        //        ApplicationName = System.Configuration.ConfigurationManager.AppSettings["SheetsService.ApplicationName"],
+        //        ApiKey = System.Configuration.ConfigurationManager.AppSettings["SheetsService.ApiKey"]
+        //    });
+        //    _SheetsService = service;
+        //}
+
+
+        public PresidentsRepository(SheetsService sheetsService)
         {
-            /// Instance the SheetService 
-            var service = new SheetsService(new BaseClientService.Initializer
-            {
-                ApplicationName = System.Configuration.ConfigurationManager.AppSettings["SheetsService.ApplicationName"],
-                ApiKey = System.Configuration.ConfigurationManager.AppSettings["SheetsService.ApiKey"]
-            });
-            _SheetsService = service;
+            _SheetsService = sheetsService;
         }
+
 
         /// <summary>
         /// Gets presidents from spreadsheet and maps it to a List of Presidents
