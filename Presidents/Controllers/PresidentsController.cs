@@ -13,8 +13,6 @@ namespace Presidents.Controllers
 
         private IPresidentsRepository presidentsRepository;
 
-        static string[] Scopes = { SheetsService.Scope.SpreadsheetsReadonly };
-
         /// <summary>
         /// Injected constructor
         /// </summary>

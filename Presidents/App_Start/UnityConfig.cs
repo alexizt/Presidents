@@ -17,14 +17,6 @@ namespace Presidents
 
             var container = new UnityContainer();
 
-            // register all your components with the container here
-            // it is NOT necessary to register your controllers
-
-            // e.g. container.RegisterType<ITestService, TestService>();
-
-            container.RegisterType<IPresidentsRepository, PresidentsRepository>();
-
-
             // Instanciate SheetService 
             SheetsService service = new SheetsService(new BaseClientService.Initializer
             {
@@ -34,9 +26,6 @@ namespace Presidents
 
             // Register PresidentsRepository with service parameter
             container.RegisterType<IPresidentsRepository, PresidentsRepository>(new InjectionConstructor(service));
-            
-
-
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
