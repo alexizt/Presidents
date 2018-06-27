@@ -8,6 +8,7 @@ namespace Presidents.Models
     /// <summary>
     /// Presidents Repository Interface
     /// </summary>
+    
     public interface IPresidentsRepository
     {
         /// <summary>
