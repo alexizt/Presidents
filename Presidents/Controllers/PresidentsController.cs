@@ -6,7 +6,7 @@ using Presidents.Models;
 namespace Presidents.Controllers
 {
     /// <summary>
-    /// Main Controller
+    /// Main Controller 
     /// </summary>
     public class PresidentsController : ApiController
     {
